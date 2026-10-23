@@ -136,7 +136,7 @@ public static partial class MajEnv
     }
 
     //尽量少使用预编译，不指望到了每个平台再来纠正编译错误，只有必要场合/性能热点使用
-#if WINDOWS
+
     [LibraryImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static partial bool SetForegroundWindow(IntPtr hWnd);
@@ -144,7 +144,7 @@ public static partial class MajEnv
     [LibraryImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static partial bool ShowWindow(IntPtr hWnd, int nCmdShow);
-#endif
+
 
     public static readonly string MAJDATA_VERSION_STRING = $"v{Assembly.GetExecutingAssembly().GetName().Version!.ToString(3)}";
     public static readonly SemVersion MAJDATA_VERSION = SemVersion.Parse(MAJDATA_VERSION_STRING, SemVersionStyles.Any);

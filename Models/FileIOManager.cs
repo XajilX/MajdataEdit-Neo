@@ -27,7 +27,7 @@ class FileIOManager
                 fptype = new FilePickerFileType("Image") { Patterns = ["*.jpg", "*.png"], MimeTypes = ["image/jpeg", "image/png"] };
                 break;
             case FileOpenerType.Video:
-                fptype = new FilePickerFileType("Image") { Patterns = ["*.mp4"], MimeTypes = ["video/mp4"] };
+                fptype = new FilePickerFileType("Video") { Patterns = ["*.mp4", "*.webm"], MimeTypes = ["video/mp4", "video/webm"] };
                 break;
             default:
                 fptype = new FilePickerFileType("Null");

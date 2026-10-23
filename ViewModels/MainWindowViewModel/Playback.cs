@@ -255,6 +255,12 @@ public partial class MainWindowViewModel
 
             var pvPath = maidataDir + "/pv.mp4";
             if (!System.IO.File.Exists(pvPath)) pvPath = maidataDir + "/bg.mp4";
+            // Linux下pv.mp4/bg.mp4无法播放 (Unity Video File Compatibility)，使用.webm格式的pv.webm/bg.webm
+            if (OperatingSystem.IsLinux())
+            {
+                pvPath = maidataDir + "/pv.webm";
+                if (!System.IO.File.Exists(pvPath)) pvPath = maidataDir + "/bg.webm";
+            }
             if (!System.IO.File.Exists(pvPath)) pvPath = "";
 
             if (!await CheckPlayerConnectionAndReconnect())

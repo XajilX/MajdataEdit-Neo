@@ -109,9 +109,20 @@ partial class ChartInfoViewModel : ViewModelBase, IDisposable
             if (file is null) return;
             var path = file.TryGetLocalPath();
             if (path is null || MaidataDir is null) return;
-            File.Delete(MaidataDir + "/bg.mp4");
-            File.Delete(MaidataDir + "/pv.mp4");
-            File.Copy(path, MaidataDir + "/bg.mp4", true);
+            // Linux下pv.mp4/bg.mp4无法播放 (Unity Video File Compatibility)，使用.webm格式的pv.webm/bg.webm
+            if (OperatingSystem.IsLinux())
+            {
+                File.Delete(MaidataDir + "/bg.webm");
+                File.Delete(MaidataDir + "/pv.webm");
+                File.Copy(path, MaidataDir + "/bg.webm", true);
+            }
+            else
+            {
+                File.Delete(MaidataDir + "/bg.mp4");
+                File.Delete(MaidataDir + "/pv.mp4");
+                File.Copy(path, MaidataDir + "/bg.mp4", true);
+            }
+
             if (new FileInfo(path).Length > 20971520)
             {
                 var result = await MessageBox.ShowWindowDialogAsync(Langs.Msg_BgTooLarge, Langs.Gui_Warning,
